@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tezuka Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+     <link rel="icon" type="image/png" href="assests/icon.ico
+     ">
+</head>
+<body>
+    <nav class="glass-nav">
+        <div class="nav-slider" id="navSlider"></div>
+        <button class="nav-btn active" onclick="switchTab('work', this)">Work</button>
+        <button class="nav-btn" onclick="switchTab('info', this)">Info</button>
+    </nav>
+    <div class="hero">
+        <h1>Tezukkaa <span style="color: #444;">Portfolios.</span></h1>
+        <p>Select a tier to view the live AMFI-Compliant Site.</p>
+    </div>
+
+    <div class="grid-container" id="cardContainer">
+        </div>
+
+    <div class="overlay" id="overlay">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            
+            <div class="scroll-content" id="scrollContent">
+                </div>
+
+            <div class="sticky-sidebar">
+                <div class="video-wrapper">
+                    <div class="video-box" id="videoBox">
+                        ▶ Live Preview
+                    </div>
+                </div>
+                <div class="toc-panel">
+                    <div class="toc-item active"><div class="toc-dot"></div>Overview</div>
+                    <div class="toc-item"><div class="toc-dot"></div>AMFI Compliance</div>
+                    <div class="toc-item"><div class="toc-dot"></div>Tech Specs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <div class="container tab-section" id="infoContainer">
+    
+    <div class="mission-header">
+        <h2 class="mission-title">Compliance Meets Design</h2>
+        <p class="mission-subtitle">
+            We combine <strong>AMFI-strict compliance</strong> with premium aesthetics. 
+            No clutter, just trust.
+        </p>
+    </div>
+
+    <div class="founders-grid">
+        
+        <div class="card founder-card">
+            <div class="avatar-placeholder">PN</div>
+            <h3 class="founder-name">Priyanshu</h3>
+            <div class="role">Tech Lead</div>
+            <p class="founder-desc">
+                Next.js performance & AMFI automation specialist.
+            </p>
+        </div>
+
+        <div class="card founder-card">
+            <div class="avatar-placeholder">DL</div>
+            <h3 class="founder-name">Daksh</h3>
+            <div class="role">Finance Lead</div>
+            <p class="founder-desc">
+                Helping us reach great heights
+            </p>
+        </div>
+
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>

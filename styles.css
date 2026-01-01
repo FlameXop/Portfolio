@@ -1,0 +1,520 @@
+/* --- MAC STYLE DESIGN SYSTEM --- */
+:root {
+    --bg-body: #050505;
+    --bg-card: #121212;
+    --border: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+    --accent-blue: #3b82f6;
+}
+
+/* RESET & FONTS */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    padding-bottom: 100px;
+    overflow-x: hidden;
+}
+
+/* Hide Scrollbar */
+body::-webkit-scrollbar { display: none; }
+.no-scroll { overflow: hidden; }
+
+/* --- HEADER --- */
+.hero {
+    margin-top: 60px;
+}
+.hero {
+    padding: 80px 20px 60px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+.hero h1 { font-size: 4rem; font-weight: 700; letter-spacing: -2px; margin-bottom: 15px; }
+.hero p { color: var(--text-muted); font-size: 1.25rem; }
+
+/* --- THE BENTO GRID (Vertical List) --- */
+.grid-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    height: 480px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.4, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    border-color: rgba(255,255,255,0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* Internal Layout of Card */
+.card-content {
+    padding: 40px;
+    z-index: 2;
+}
+.card-tier { 
+    color: var(--accent-blue); 
+    font-size: 0.8rem; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    font-weight: 600; 
+    margin-bottom: 8px;
+}
+.card-title { font-size: 2.28rem; font-weight: 650; letter-spacing: -1px; margin-bottom: 10px; }
+.card-price { font-size: 1.5rem; color: var(--text-muted); }
+
+/* The "Browser Preview" inside the card */
+.card-visual {
+    position: absolute;
+    top: 40px; right: 0; bottom: 0; width: 60%;
+    background: #000;
+    border-top-left-radius: 16px;
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    box-shadow: -20px 20px 60px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease;
+}
+.card:hover .card-visual { transform: translateX(-10px) translateY(-5px); }
+
+/* Fake Mac Window Header */
+.browser-header {
+    height: 36px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    gap: 8px;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.red { background: #ef4444; } .yellow { background: #eab308; } .green { background: #22c55e; }
+
+.browser-body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    background: linear-gradient(to bottom right, #111, #050505);
+}
+
+/* --- THE EXPANDED OVERLAY (Scrollytelling) --- */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(15px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.overlay.active { opacity: 1; pointer-events: auto; }
+
+.modal {
+    width: 95vw;
+    height: 92vh;
+    background: #0a0a0a;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    transform: translateY(50px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+}
+.overlay.active .modal { transform: translateY(0); }
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 40px; height: 40px;
+    background: #222;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 100;
+    font-size: 1.2rem;
+}
+
+/* LEFT SIDE: SCROLLING CONTENT */
+.scroll-content {
+    width: 60%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 60px;
+}
+
+.section-block {
+    margin-bottom: 120px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+.section-block.visible { opacity: 1; transform: translateY(0); }
+
+.amfi-box {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 24px;
+    border-radius: 16px;
+    margin-top: 20px;
+    display: flex;
+    gap: 16px;
+}
+.amfi-box h4 { margin-bottom: 5px; }
+
+/* RIGHT SIDE: STICKY VIDEO */
+.sticky-sidebar {
+    width: 40%;
+    height: 100%;
+    border-left: 1px solid var(--border);
+    background: #0e0e0e;
+    display: flex;
+    flex-direction: column;
+}
+
+.video-wrapper {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.video-box {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+}
+
+.toc-panel {
+    padding: 30px;
+    border-top: 1px solid var(--border);
+}
+.toc-item { 
+    display: flex; align-items: center; gap: 10px; 
+    margin-bottom: 12px; color: var(--text-muted); font-size: 0.9rem; 
+}
+.toc-item.active { color: white; font-weight: 600; }
+.toc-dot { width: 6px; height: 6px; background: #333; border-radius: 50%; transition: 0.3s; }
+.toc-item.active .toc-dot { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
+
+/* --- LIQUID GLASS NAV --- */
+.glass-nav {
+    position: absolute; /* CHANGED FROM FIXED to ABSOLUTE so it scrolls */
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 5px;
+    border-radius: 999px;
+    display: flex;
+    z-index: 1000;
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+}
+
+/* Ensure Info Container Stacks Vertically */
+
+
+/* The Moving "Liquid" Pill */
+.nav-slider {
+    position: absolute;
+    left: 5px; /* Matches padding */
+    top: 5px;
+    width: 80px; /* Fixed width for the slider */
+    height: calc(100% - 10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); /* Liquid physics */
+    /* This shadow creates the "Liquid" shine on top */
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2), 
+        inset 0 0 20px rgba(255, 255, 255, 0.05),
+        0 4px 10px rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+
+/* The Buttons */
+.nav-btn {
+    background: none;
+    border: none;
+    color: #666;
+    width: 80px; /* Must match slider width */
+    padding: 10px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.nav-btn.active {
+    color: #fff;
+    text-shadow: 0 0 15px rgba(255,255,255,0.4); /* Glowing Text */
+}
+
+
+/*=================================================
+   PREMIUM INFO TAB STYLES (MAC AESTHETIC)
+=================================================*/
+
+/* 1. CONTAINER LAYOUT */
+#infoContainer {
+    flex-direction: column; 
+    gap: 40px; /* More breathing room between sections */
+    width: 100%;
+    max-width: 1000px; /* Ensure it doesn't stretch too wide on large screens */
+    margin: 140px auto; /* Center the container */
+}
+
+/* 2. THE MISSION CARD (Hero Section) */
+.mission-card {
+    /* Premium dark gradient background */
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Thinner, subtler border */
+    border-radius: 24px;
+    padding: 60px 40px; /* More padding for a luxurious feel */
+    text-align: center;
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5); /* Deep shadow */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle top shine effect */
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+}
+.mission-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+.mission-label {
+    color: var(--accent);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px; /* Wider spacing for premium look */
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+.mission-title {
+    font-size: 4rem; /* Big & Bold */
+    font-weight: 800;
+    letter-spacing: -2px;
+    background: linear-gradient(to bottom, #ffffff, #888888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+.mission-subtitle {
+    color: #888;
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.mission-text {
+    color: #b0b0b0; /* Lighter gray for better readability against dark */
+    font-size: 1.25rem;
+    line-height: 1.7;
+    max-width: 750px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+.mission-text strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* 3. FOUNDERS GRID LAYOUT */
+.founders-grid {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+}
+/* 4. FOUNDER CARDS */
+.founder-card {
+    flex: 1;
+    /* Subtle gradient differs from mission card for visual hierarchy */
+    background: linear-gradient(to bottom right, #161616, #080808);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+}
+
+.founder-card:hover {
+    transform: translateY(-7px); /* Smoother lift */
+    border-color: rgba(255,255,255,0.15); /* Brighter border on hover */
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+}
+
+/* Premium Avatar Circles */
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    /* Glass/Metallic gradient */
+    background: linear-gradient(135deg, #2a2a2a, #111);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    /* Inner shadow for depth */
+    box-shadow: inset 0 2px 10px rgba(255,255,255,0.05), 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.founder-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.role {
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.founder-desc {
+    color: #999;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 350px;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .founders-grid { flex-direction: column; }
+    .mission-title { font-size: 2.5rem; }
+    .mission-card { padding: 40px 25px; }
+}
+.tab-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    display: none; /* Hidden by default */
+}
+
+.tab-section.active {
+    opacity: 1;
+    transform: translateY(0);
+    display: flex; /* Or block, handled by JS */
+}
+/* --- 1. TAB ANIMATIONS & STRUCTURE --- */
+
+/* --- 2. CARD ENTRY ANIMATION (STAGGERED) --- */
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* This applies to every card */
+.card {
+    /* The animation definition */
+    animation: cardFadeIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0; /* Start invisible so they don't flash */
+}
+/* --- ACCORDION (EXPANDABLE SECTIONS) --- */
+.accordion-item {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 16px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.accordion-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+.accordion-header:hover {
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.accordion-icon { font-size: 1.5rem; }
+.accordion-title h4 { margin: 0; font-size: 1.1rem; color: #fff; }
+.accordion-title p { margin: 4px 0 0; font-size: 0.85rem; color: #888; }
+
+/* The Hidden Content */
+.accordion-body {
+    max-height: 0; /* Hidden by default */
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.accordion-body p {
+    padding: 20px;
+    margin: 0;
+    color: #b0b0b0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* When Active (Expanded) */
+.accordion-item.active {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+.accordion-item.active .accordion-body {
+    max-height: 200px; /* Adjust this if text is very long */
+}
